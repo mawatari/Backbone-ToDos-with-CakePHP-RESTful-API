@@ -20,6 +20,9 @@ class TodosController extends AppController {
 	 * @return void
 	 */
 	public function index() {
+		$pdo = $this->Todo->getDatasource()->getConnection();
+		$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
 		$todos = $this->Todo->find('all');
 		$this->set(array(
 			'todos' => $todos,
