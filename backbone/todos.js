@@ -39,7 +39,13 @@ $(function(){
     model: Todo,
 
     // Save all of the todo items under the `"todos-backbone"` namespace.
-    localStorage: new Backbone.LocalStorage("todos-backbone"),
+//    localStorage: new Backbone.LocalStorage("todos-backbone"),
+
+    url: '/cakephp/todos',
+
+    parse: function(response) {
+      return response.todos != undefined ?response.todos: response;
+    },
 
     // Filter down the list of all todo items that are finished.
     done: function() {
