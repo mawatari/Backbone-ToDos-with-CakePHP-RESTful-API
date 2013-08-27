@@ -14,6 +14,13 @@ class TodosController extends AppController {
 	 */
 	public $components = array('RequestHandler');
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+
+		if (!$this->request->is('ajax')) throw new BadRequestException('Ajax以外でのアクセスは許可されていません。');
+		$this->response->header('X-Content-Type-Options', 'nosniff');
+	}
+
 	/**
 	 * index method
 	 *
@@ -25,8 +32,7 @@ class TodosController extends AppController {
 
 		$todos = $this->Todo->find('all');
 		$this->set(array(
-			'todos' => $todos,
-			'_serialize' => array('todo')
+			'todos' => $todos
 		));
 	}
 
