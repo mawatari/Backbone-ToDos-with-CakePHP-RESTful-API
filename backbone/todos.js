@@ -21,6 +21,12 @@ $(function(){
       };
     },
 
+    urlRoot: '/cakephp/todos',
+
+    parse: function(response) {
+      return response.Todo != undefined ? response.Todo : response;
+    },
+
     // Toggle the `done` state of this todo item.
     toggle: function() {
       this.save({done: !this.get("done")});
